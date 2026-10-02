@@ -14,3 +14,15 @@ npm start
 
 ## الإنتاج
 التخزين المحلي مناسب للتجربة. على Vercel استخدم Upstash Redis أو قاعدة بيانات حقيقية للحسابات والسجل والكاش والـ rate limit. الدفع الحقيقي عبر Fawry/Vodafone Cash يحتاج بيانات تاجر وواجهة رسمية.
+
+
+## Vercel fix
+هذه النسخة لا تستخدم `fs` لقاعدة البيانات؛ Vercel runtime لا يصلح لتخزين `data/db.json` بشكل دائم. اربط Upstash Redis من Vercel Storage، ثم تأكد من وجود `UPSTASH_REDIS_REST_URL` و`UPSTASH_REDIS_REST_TOKEN`.
+
+### Environment Variables
+- `GEMINI_API_KEY` = مفتاح Gemini الجديد
+- `GEMINI_MODEL` = `gemini-flash-latest` أو اسم نموذج مدعوم
+- `JWT_SECRET` = قيمة عشوائية طويلة
+- `UPSTASH_REDIS_REST_URL` و`UPSTASH_REDIS_REST_TOKEN` = من Upstash
+
+Vercel توصي بفحص Logs عند `FUNCTION_INVOCATION_FAILED`.
